@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chessboard (HTML + CSS)</title>
+  <style>
+    :root{
+      --light: #f0d9b5; /* light squares */
+      --dark:  #b58863; /* dark squares  */
+      --board-border: #333;
+      --label: #222;
+      --label-bg: #ffffffd9;
+      --square-size: min(90vmin, 640px);
+    }
+
+    body{ 
+      margin:0; 
+      min-height:100svh; 
+      display:grid; 
+      place-items:center; 
+      background: radial-gradient(100% 100% at 50% 0%, #f8f8f8, #eee);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:#111;
+    }
+
+    .app{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+
+    .board-wrap{ position:relative; }
+
+    .board{ 
+      width: var(--square-size);
+      aspect-ratio: 1 / 1; 
+      border: 6px solid var(--board-border);
+      border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.15);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .row{ 
+      display:grid; 
+      grid-template-columns: repeat(8, 1fr);
+      flex:1;
+    }
+
+    .square{
+      position:relative;
+      aspect-ratio: 1 / 1;
+      display:grid; 
+      place-items:center; 
+      user-select:none;
+      transition: transform .08s ease;
+    }
+
+    /* Base pattern: row 1 uses light on odd, dark on even */
+    .row:nth-child(odd) .square:nth-child(odd){ background: var(--light); }
+    .row:nth-child(odd) .square:nth-child(even){ background: var(--dark); }
+
+    /* Alternate rows flip the colors */
+    .row:nth-child(even) .square:nth-child(odd){ background: var(--dark); }
+    .row:nth-child(even) .square:nth-child(even){ background: var(--light); }
+
+    /* Subtle hover */
+    .square:hover{ outline: 3px solid rgba(0,0,0,.15); outline-offset:-3px; z-index:1; }
+    .square:active{ transform: scale(.98); }
+
+    /* Coordinate labels (toggleable) */
+    .square[data-coord]::after{
+      content: attr(data-coord);
+      position:absolute; 
+      left:6px; 
+      bottom:6px; 
+      font-size:.78rem; 
+      line-height:1; 
+      color: var(--label);
+      background: var(--label-bg);
+      padding: 2px 6px; 
+      border-radius: 8px;
+      opacity:.9;
+    }
+
+    /* Hide coords when checkbox is off */
+    .hide-coords .square::after{ display:none; }
+
+    /* Small screen tweaks */
+    @media (max-width: 480px){
+      :root{ --square-size: min(94vmin, 94vmin); }
+      .square[data-coord]::after{ font-size:.7rem; padding:1px 5px; }
+    }
+
+    .controls{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;
+    }
+    .control{
+      display:inline-flex; align-items:center; gap:8px; 
+      padding:10px 14px; border:1px solid #ddd; border-radius:12px; background:#fff; 
+      box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    }
+    .btn{ cursor:pointer; padding:10px 14px; border:0; border-radius:12px; background:#111; color:#fff; font-weight:600; }
+    .btn:active{ transform: translateY(1px); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="controls">
+      <label class="control"><input id="toggleCoords" type="checkbox" checked /> Show coordinates</label>
+      <button id="flipBtn" class="btn" type="button">Flip board</button>
+    </div>
+
+    <div id="wrap" class="board-wrap">
+      <div id="board" class="board" aria-label="Chessboard">
+        <!-- Rank 8 -->
+        <div class="row">
+          <div class="square" data-coord="a8"></div>
+          <div class="square" data-coord="b8"></div>
+          <div class="square" data-coord="c8"></div>
+          <div class="square" data-coord="d8"></div>
+          <div class="square" data-coord="e8"></div>
+          <div class="square" data-coord="f8"></div>
+          <div class="square" data-coord="g8"></div>
+          <div class="square" data-coord="h8"></div>
+        </div>
+        <!-- Rank 7 -->
+        <div class="row">
+          <div class="square" data-coord="a7"></div>
+          <div class="square" data-coord="b7"></div>
+          <div class="square" data-coord="c7"></div>
+          <div class="square" data-coord="d7"></div>
+          <div class="square" data-coord="e7"></div>
+          <div class="square" data-coord="f7"></div>
+          <div class="square" data-coord="g7"></div>
+          <div class="square" data-coord="h7"></div>
+        </div>
+        <!-- Rank 6 -->
+        <div class="row">
+          <div class="square" data-coord="a6"></div>
+          <div class="square" data-coord="b6"></div>
+          <div class="square" data-coord="c6"></div>
+          <div class="square" data-coord="d6"></div>
+          <div class="square" data-coord="e6"></div>
+          <div class="square" data-coord="f6"></div>
+          <div class="square" data-coord="g6"></div>
+          <div class="square" data-coord="h6"></div>
+        </div>
+        <!-- Rank 5 -->
+        <div class="row">
+          <div class="square" data-coord="a5"></div>
+          <div class="square" data-coord="b5"></div>
+          <div class="square" data-coord="c5"></div>
+          <div class="square" data-coord="d5"></div>
+          <div class="square" data-coord="e5"></div>
+          <div class="square" data-coord="f5"></div>
+          <div class="square" data-coord="g5"></div>
+          <div class="square" data-coord="h5"></div>
+        </div>
+        <!-- Rank 4 -->
+        <div class="row">
+          <div class="square" data-coord="a4"></div>
+          <div class="square" data-coord="b4"></div>
+          <div class="square" data-coord="c4"></div>
+          <div class="square" data-coord="d4"></div>
+          <div class="square" data-coord="e4"></div>
+          <div class="square" data-coord="f4"></div>
+          <div class="square" data-coord="g4"></div>
+          <div class="square" data-coord="h4"></div>
+        </div>
+        <!-- Rank 3 -->
+        <div class="row">
+          <div class="square" data-coord="a3"></div>
+          <div class="square" data-coord="b3"></div>
+          <div class="square" data-coord="c3"></div>
+          <div class="square" data-coord="d3"></div>
+          <div class="square" data-coord="e3"></div>
+          <div class="square" data-coord="f3"></div>
+          <div class="square" data-coord="g3"></div>
+          <div class="square" data-coord="h3"></div>
+        </div>
+        <!-- Rank 2 -->
+        <div class="row">
+          <div class="square" data-coord="a2"></div>
+          <div class="square" data-coord="b2"></div>
+          <div class="square" data-coord="c2"></div>
+          <div class="square" data-coord="d2"></div>
+          <div class="square" data-coord="e2"></div>
+          <div class="square" data-coord="f2"></div>
+          <div class="square" data-coord="g2"></div>
+          <div class="s
