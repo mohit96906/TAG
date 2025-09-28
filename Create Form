@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css"/>
+  <title>Document</title>
+</head>
+<body>
+  <div class="form-container">
+    <h2> Contact Form</h2>
+  <form action="#" method="post">
+    <label for="name"> Name:</label>
+    <input type="text" name="name" placeholder="Enter a name"/>
+    <br/>  <br/>
+    <label for="password"> Password:</label>
+    <input type="password" name="password" placeholder="Enter PAssword"/>
+    <br/>  <br/>
+    <label for=" name "> Email:</label>
+    <input type="email" name="email" placeholder="Enter a Email"/>
+    <br/>  <br/>
+    <button id="btn"> Submit</button>
+  </form>
+  </div>
+</body>
+</html>
+/// CSS
+.form-container{
+    background-color: aqua;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(244, 17, 17, 0.1);
+    width: 500px;
+}
+h2{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"]
+{
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus{
+    border-color: #007BFF;
+    outline: none;
+}
+#btn{
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    
+}
+#btn:hover{
+    background-color: #0056b3;
+
+}
+
